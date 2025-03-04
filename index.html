@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Tokens para IA</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Tokens para IA</h1>
+        <div class="calculator">
+            <textarea 
+                id="input-text" 
+                placeholder="Ingresa tu texto aquí (máx. 300 caracteres)"
+                maxlength="300"
+            ></textarea>
+            <button onclick="calculateTokens()">Calcular Tokens</button>
+            <div id="result"></div>
+            <div id="explanation"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
