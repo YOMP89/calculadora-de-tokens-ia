@@ -4,7 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Tokens para IA</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #1a73e8;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .calculator {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            font-size: 1rem;
+        }
+
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #1557b0;
+        }
+
+        #result {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #202124;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        #explanation {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            color: #5f6368;
+            line-height: 1.6;
+        }
+
+        .message {
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .error {
+            background: #fce8e6;
+            color: #c5221f;
+        }
+
+        .info {
+            background: #e8f0fe;
+            color: #1967d2;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #5f6368;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -21,6 +117,54 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        function calculateTokens() {
+            const inputText = document.getElementById('input-text').value;
+            const resultDiv = document.getElementById('result');
+            const explanationDiv = document.getElementById('explanation');
+
+            // Limpiar mensajes anteriores
+            resultDiv.innerHTML = '';
+            explanationDiv.innerHTML = '';
+
+            if (!inputText.trim()) {
+                resultDiv.innerHTML = '<div class="message error">Por favor ingresa algún texto</div>';
+                return;
+            }
+
+            // Cálculo de tokens aproximado (1 token ≈ 4 caracteres)
+            const charCount = inputText.length;
+            const tokens = Math.ceil(charCount / 4);
+
+            // Mostrar resultados
+            resultDiv.innerHTML = `
+                <div class="message info">
+                    Tokens estimados: ${tokens}
+                </div>
+                <div class="char-counter">Caracteres usados: ${charCount}/300</div>
+            `;
+
+            // Explicación
+            explanationDiv.innerHTML = `
+                <h3>¿Cómo se calcula?</h3>
+                <p>Los tokens en modelos de IA se calculan generalmente dividiendo el número de caracteres entre 4 (1 token ≈ 4 caracteres). Esta estimación puede variar según:</p>
+                <ul>
+                    <li>Idioma del texto</li>
+                    <li>Uso de espacios y puntuación</li>
+                    <li>Modelo específico de IA utilizado</li>
+                </ul>
+                <p>Este cálculo es una aproximación y puede diferir ligeramente de las herramientas oficiales de los modelos de IA.</p>
+            `;
+        }
+
+        // Actualizar contador de caracteres en tiempo real
+        document.getElementById('input-text').addEventListener('input', function(e) {
+            const charCount = e.target.value.length;
+            const charCounter = document.querySelector('.char-counter');
+            if (charCounter) {
+                charCounter.textContent = `Caracteres usados: ${charCount}/300`;
+            }
+        });
+    </script>
 </body>
 </html>
