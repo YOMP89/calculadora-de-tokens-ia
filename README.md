@@ -1,5 +1,7 @@
 # Calculadora de Tokens para IA
 
+![Pantallazo del proyecto](pantallazoProyecto.png)
+
 Una aplicación web simple que permite calcular la cantidad aproximada de tokens utilizados en modelos de IA (como GPT) basándose en un texto ingresado por el usuario.
 
 ## Descripción
